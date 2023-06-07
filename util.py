@@ -1,6 +1,7 @@
 import json
 import numpy as np
 import math
+import random
 
 curr_iter = 0
 n_iter = 200
