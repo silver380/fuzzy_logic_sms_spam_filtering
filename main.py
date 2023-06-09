@@ -28,7 +28,7 @@ if __name__ == "__main__":
       ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
       ans, fitness, fitness_history = ea.run()
       t_fitness = matthews_corrcoef(y_test,ans.test(X_test))
-      if t_fitness < 0.2 and nq < 3:
+      if t_fitness < 0.3 and nq < 3:
          nq+=1
          continue
       nq = 0
