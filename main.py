@@ -14,6 +14,7 @@ MAX_RULES = 50
 histories = []
 best_ans = None
 repeat_num = 5
+
 if __name__ == "__main__":
    X_train = np.load('X_train.npy')
    X_test  = np.load('X_test.npy')
@@ -26,7 +27,7 @@ if __name__ == "__main__":
       ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
       ans, fitness, fitness_history = ea.run()
       t_fitness = matthews_corrcoef(y_test,ans.test(X_test))
-      if t_fitness < 0.4:
+      if t_fitness < 0.2:
          continue
 
       if i > 0:
@@ -45,7 +46,8 @@ if __name__ == "__main__":
    
    best_ans.explain(X_test[0],y_test[0])
    best_ans.print_rules()
-      
+   print(f"best found answer has {best_ans.fitness} fitness (MCC). on training Set")
+   print(f"best found answer has {matthews_corrcoef(y_test,best_ans.test(X_test))} fitness (MCC). on training Set")
    for i in range(5):
       visualize.gen_membership_function(best_ans.ferules[f'f{i}'], i+1)
       
