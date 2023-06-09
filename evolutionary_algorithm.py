@@ -4,6 +4,7 @@ import random
 from chromosome import Chromosome
 import sys
 import copy
+import time
 
 class EvolutionaryAlgorithm:
     def __init__(self, n_iter, mut_prob, recomb_prob, population_size, max_rules, data):
@@ -113,6 +114,7 @@ class EvolutionaryAlgorithm:
         prev_avg = 0
 
         for _ in range(self.n_iter):
+            start_time = time.time()
             parents = self.parent_selection().copy()
             youngs = self.recombination(parents).copy()
             youngs = self.all_mutation(youngs).copy()
@@ -121,8 +123,9 @@ class EvolutionaryAlgorithm:
             self.current_iter += 1
             util.curr_iter += 1
             best_current = sorted(self.population, key=lambda agent: agent.fitness, reverse=True)[0]
+            end_time = time.time()
             print(f"current iteration: {self.current_iter} / {self.n_iter}", f", best fitness: {best_current.fitness}")
-            print(f'fitness_avg: {self.fitness_avg / (self.population_size)}')
+            print(f'fitness_avg: {self.fitness_avg / (self.population_size)}, time: {end_time - start_time}')
             print("--------------------------------------------------------------------------------------------------")
             self.fitness_history.append(self.fitness_avg / (self.population_size))
             prev_avg = self.fitness_avg / (self.population_size)

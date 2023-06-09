@@ -1,0 +1,14 @@
+the input sample is: [0.         4.18796829 0.         0.         0.        ]
+result for rule number 1: 1 0.9999985485210061 DC 0 0 
+aggregation result: 0.0, rule class: spam
+result for rule number 2: 0 1.0 1 DC 0.915359036254454 
+aggregation result: 0.0, rule class: spam
+result for rule number 3: 1 0.9999985485210061 0.9995483658268235 0.984682816285913 0.9967208932669251 
+aggregation result: 0.9810092541796933, rule class: not spam
+result for rule number 4: DC 0 DC 1 0 
+aggregation result: 0, rule class: not spam
+result for rule number 5: DC DC 0 0.9933910896361483 2.3712013863504733e-50 
+aggregation result: 0.0, rule class: spam
+matching with not spam class: 0.9810092541796933
+matching with spam class: 0.0
+rule base prediction: not spam, true label: spam

@@ -5,40 +5,51 @@ from evolutionary_algorithm import EvolutionaryAlgorithm as EA
 from sklearn.metrics import accuracy_score, f1_score, recall_score, confusion_matrix, matthews_corrcoef
 import seaborn as sb
 import matplotlib.pyplot as plt
-
+import visualize
 N_ITER = util.n_iter
 POPULATION_SIZE = 10
 MUT_PROB = 0.9
 RECOMB_PROB = 0.6
 MAX_RULES = 50
-
+histories = []
+best_ans = None
+repeat_num = 5
 if __name__ == "__main__":
    X_train = np.load('X_train.npy')
    X_test  = np.load('X_test.npy')
    y_train = np.load('y_train.npy')
    y_test = np.load('y_test.npy')
    data = [X_train, y_train]
-   ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
-   ans, fitness, fitness_history = ea.run()
+   i = 0
+   while i < repeat_num:
+      print(f"Run number {i+1} / {repeat_num}")
+      ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
+      ans, fitness, fitness_history = ea.run()
+      t_fitness = matthews_corrcoef(y_test,ans.test(X_test))
+      if t_fitness < 0.4:
+         continue
 
-   print(f"f0: {len(ans.ferules['f0'])}")
-   print(f"f1: {len(ans.ferules['f1'])}")
-   print(f"f2: {len(ans.ferules['f2'])}")
-   print(f"f3: {len(ans.ferules['f3'])}")
-   print(f"f4: {len(ans.ferules['f4'])}")
-   for rule in ans.ferules['rule_base']:
-      print(rule)
+      if i > 0:
+         if ans.fitness > best_ans.fitness:
+            best_ans = ans
+      else:
+         best_ans = ans
+         
+      i+=1
+      histories.append(fitness_history)
 
-   y_hat = ans.test(X_test)
-   y_hat = np.array(y_hat)
-   cm_train = confusion_matrix(y_test, y_hat)
-   plt.subplots(figsize=(10, 6))
-   sb.heatmap(cm_train, annot = True, fmt = 'g')
-   plt.xlabel("Predicted")
-   plt.ylabel("Actual")
-   plt.title("Confusion Matrix for the training set")
-   plt.show()
-   print(accuracy_score(y_test,y_hat))
-   print(f"matthews_corrcoef: {matthews_corrcoef(y_test, y_hat)}")
+
+   histories = np.array(histories)   
+   np.savetxt("histories.csv", histories,
+               delimiter = ",")
+   
+   best_ans.explain(X_test[0],y_test[0])
+   best_ans.print_rules()
+      
+   for i in range(5):
+      visualize.gen_membership_function(best_ans.ferules[f'f{i}'], i+1)
+      
+   visualize.gen_confusion_matrix(y_train, best_ans.train_y_hat, "training")
+   visualize.gen_confusion_matrix(y_test, best_ans.test(X_test), "testing")
 
    #print(fitness_history)

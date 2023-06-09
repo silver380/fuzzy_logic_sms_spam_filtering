@@ -3,8 +3,7 @@ import util
 import math
 import numpy as np
 from sklearn.metrics import accuracy_score, f1_score, recall_score, confusion_matrix, matthews_corrcoef
-import seaborn as sb
-import matplotlib.pyplot as plt
+import sys
 class Chromosome:
     def __init__(self, mut_prob, recomb_prob, max_rules, calc_fitness, data):
         self.ferules = {"f0": [], "f1": [], "f2": [], "f3": [], "f4": [], "rule_base":[]}
@@ -18,7 +17,7 @@ class Chromosome:
 
         # X_train ad y_train
         self.data = data
-
+        self.train_y_hat = []
         # The maximum bandwidth of the towers
         self.fitness = 0
         self.label_cnt = [0,0]
@@ -28,8 +27,11 @@ class Chromosome:
 
     def generate_s_m_mf(self):
         m = random.uniform(1, 12)
-        s = random.uniform(0, m/2)
+        s = random.uniform(0+1e-5, m/2)
         mf = random.randint(1, 4)
+        if mf == 2:
+             neg = -1 if random.uniform(0, 1) <= 0.5 else 1
+             s *= neg
         return s, m, mf
     
     def init_chromosome(self):
@@ -154,7 +156,7 @@ class Chromosome:
             numerator1 = x - m + s
             numerator2 = m - x + s
             denominator = s
-            ans = max(0, min(numerator1 / denominator, numerator2 / denominator, 0))
+            ans = max(0, min(numerator1 / denominator, numerator2 / denominator))
         
         elif mf == 2: # Right-angled Trapezoidal
             numerator1 = x - m + s
@@ -212,6 +214,7 @@ class Chromosome:
             y_hat.append(np.argmax(gc_x))
 
         y_hat = np.array(y_hat.copy())
+        self.train_y_hat = y_hat.copy()
         #self.fitness = accuracy_score(self.data[1],y_hat)
         self.fitness = matthews_corrcoef(self.data[1], y_hat)
         
@@ -227,10 +230,8 @@ class Chromosome:
                 for a in range(5):
                     if rule[a] != 0:
                         negated = False if rule[a] >= 0 else True
-                        try:
-                            mu.append(self.membership(x[a],self.ferules[f"f{a}"][abs(rule[a])-1],negated))
-                        except:
-                            print(f"bad index: {a}, {rule}, {rule[a]}")
+                        mu.append(self.membership(x[a],self.ferules[f"f{a}"][abs(rule[a])-1],negated))
+                        
                 
                 gr = self.agg_algebric_product(mu)
                 if(rule[5]==0):
@@ -243,3 +244,77 @@ class Chromosome:
         y_hat = np.array(y_hat.copy())
         return y_hat
     
+    def mu_name(self,f):
+        s,m,mf = f[0],f[1],f[2]
+        if mf == 1:
+            return f"iso_tri(s: {s},m: {m})"
+        elif mf==2:
+            return f"rect_trap(s: {s},m: {m})"
+        elif mf==3:
+            return f"gaussian(s: {s},m: {m})"
+        elif mf==4:
+            return f"sigmoid(s: {s},m: {m})"
+        
+    def print_rules(self):
+        original_stdout = sys.stdout
+        with open('best_rule_base.txt', 'w') as f:
+
+            sys.stdout = f
+            print("Spam class:1, not_spam class: 0\n")
+            i = 1
+            for rule in self.ferules['rule_base']:
+                rule_str = "if "
+                first = True
+                for a in range(5):
+                    if rule[a]!=0:
+                        if first == False:
+                            rule_str += "AND "
+                        elif first == True:
+                            first = False
+
+                        rule_str_add = f'X[{a}] is {self.mu_name(self.ferules[f"f{a}"][abs(rule[a])-1])} '
+                        rule_str += rule_str_add
+                
+                rule_str += f"Then {rule[5]}"
+                print(f"rule number {i}: {rule_str}")
+                i+=1
+
+
+    def explain(self, x, y):
+        original_stdout = sys.stdout
+        with open('explain.txt', 'w') as f:
+            sys.stdout = f
+            print(f"the input sample is: {x}")
+            
+            gc_x = [0,0]
+            
+            for i in range(len(self.ferules['rule_base'])):
+                rule = self.ferules['rule_base'][i]
+                gr = 0
+                mu = []
+                mu_str = ""
+                for a in range(5):
+                    if rule[a] != 0:
+                        negated = False if rule[a] >= 0 else True
+                        mu.append(self.membership(x[a],self.ferules[f"f{a}"][abs(rule[a])-1],negated))
+                    if rule[a] != 0:
+                        mu_str += str(f"{mu[-1]} ")
+                    else:
+                        mu_str += "DC "
+                print(f"result for rule number {i+1}: {mu_str}")
+                gr = self.agg_algebric_product(mu)
+                rule_class = "spam" if rule[5] == 1 else "not spam"
+                print(f"aggregation result: {gr}, rule class: {rule_class}")
+                if(rule[5]==0):
+                    gc_x[0] += gr
+                else:
+                    gc_x[1] += gr
+            print(f"matching with not spam class: {gc_x[0]}")
+            print(f"matching with spam class: {gc_x[1]}")
+            result = "spam" if np.argmax(gc_x) == 1 else "not spam"
+            true_result = "spam" if y==1 else "not spam"
+            print(f"rule base prediction: {result}, true label: {true_result}")
+            sys.stdout = original_stdout
+        
+
+        
