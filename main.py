@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 N_ITER = util.n_iter
 POPULATION_SIZE = 10
 MUT_PROB = 0.9
-RECOMB_PROB = 0.9
+RECOMB_PROB = 0.6
 MAX_RULES = 50
 
 if __name__ == "__main__":
