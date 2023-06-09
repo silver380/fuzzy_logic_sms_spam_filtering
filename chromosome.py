@@ -21,7 +21,7 @@ class Chromosome:
         # The maximum bandwidth of the towers
         self.fitness = 0
         self.label_cnt = [0,0]
-        self.max_label_diff = 1 #max_rules / 10
+        self.max_label_diff = 7 # max_rules / 10
         self.calc_fitness = calc_fitness
         self.init_chromosome()
 
@@ -81,7 +81,7 @@ class Chromosome:
         for k in range(len(self.ferules['rule_base'])):
             rule_change_prob = random.uniform(0, 1)
             if rule_change_prob <= self.mut_prob:
-                i = random.randint(0, 4)
+                i = random.randint(0, 5)
                 if i < 5:
                     neg = -1 if (random.uniform(0, 1) <= 0.5) else 1
                     self.ferules['rule_base'][k][i] = (neg * (random.randint(0, len(self.ferules[f"f{i}"]))))

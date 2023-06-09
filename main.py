@@ -7,13 +7,13 @@ import seaborn as sb
 import matplotlib.pyplot as plt
 import visualize
 N_ITER = util.n_iter
-POPULATION_SIZE = 5
+POPULATION_SIZE = 10
 MUT_PROB = 0.9
 RECOMB_PROB = 0.6
-MAX_RULES = 10
+MAX_RULES = 75
 histories = []
 best_ans = None
-repeat_num = 2
+repeat_num = 1
 
 if __name__ == "__main__":
    X_train = np.load('X_train.npy')
@@ -28,9 +28,9 @@ if __name__ == "__main__":
       ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
       ans, fitness, fitness_history = ea.run()
       t_fitness = matthews_corrcoef(y_test,ans.test(X_test))
-      if t_fitness < 0.25 and nq < 3:
-         nq+=1
-         continue
+      # if t_fitness < 0.25 and nq < 3:
+      #    nq+=1
+      #    continue
       nq = 0
       if i > 0:
          if ans.fitness > best_ans.fitness:
