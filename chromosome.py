@@ -21,7 +21,11 @@ class Chromosome:
         # The maximum bandwidth of the towers
         self.fitness = 0
         self.label_cnt = [0,0]
+<<<<<<< HEAD
         self.max_label_diff = 10  #max_rules / 10
+=======
+        self.max_label_diff = 7 # max_rules / 10
+>>>>>>> 80854539b1102db99d66c225ab31c3ea9d05e1fa
         self.calc_fitness = calc_fitness
         self.init_chromosome()
 

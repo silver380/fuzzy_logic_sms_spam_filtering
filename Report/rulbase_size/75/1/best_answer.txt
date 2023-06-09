@@ -1,0 +1,2 @@
+best found answer has 0.6746326455872457 fitness (MCC). on training Set
+best found answer has 0.0 fitness (MCC). on test Set
