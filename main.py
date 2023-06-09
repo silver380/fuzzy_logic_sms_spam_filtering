@@ -47,7 +47,7 @@ if __name__ == "__main__":
    best_ans.explain(X_test[0],y_test[0])
    best_ans.print_rules()
    print(f"best found answer has {best_ans.fitness} fitness (MCC). on training Set")
-   print(f"best found answer has {matthews_corrcoef(y_test,best_ans.test(X_test))} fitness (MCC). on training Set")
+   print(f"best found answer has {matthews_corrcoef(y_test,best_ans.test(X_test))} fitness (MCC). on test Set")
    for i in range(5):
       visualize.gen_membership_function(best_ans.ferules[f'f{i}'], i+1)
       
