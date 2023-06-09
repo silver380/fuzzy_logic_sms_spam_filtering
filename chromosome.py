@@ -278,6 +278,7 @@ class Chromosome:
                 rule_str += f"Then {rule[5]}"
                 print(f"rule number {i}: {rule_str}")
                 i+=1
+            sys.stdout = original_stdout
 
 
     def explain(self, x, y):
