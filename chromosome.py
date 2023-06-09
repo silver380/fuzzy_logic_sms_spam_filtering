@@ -21,13 +21,15 @@ class Chromosome:
         # The maximum bandwidth of the towers
         self.fitness = 0
         self.label_cnt = [0,0]
-        self.max_label_diff = 5  #max_rules / 10
+        self.max_label_diff = 6  #max_rules / 10
         self.calc_fitness = calc_fitness
         self.init_chromosome()
 
     def generate_s_m_mf(self, fi):
-        maxs = [10, 13, 24, 18, 14]
-        m = random.uniform(1,maxs[fi])
+        #maxs = [10, 13, 24, 18, 14] # for feature selection
+        maxs = [70, 100, 45, 20, 50 ] # for feature extraction
+        mins = [-5, -15, -40, -15, -40] # for feature extraction
+        m = random.uniform(mins[fi],maxs[fi])
         s = random.uniform(0+1e-5, m/2)
         mf = random.randint(1, 4)
         if mf == 2:

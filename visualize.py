@@ -23,7 +23,8 @@ def getAxisValues(axis,stepSize):
 def gen_membership_function(feature, i):
     cmap = get_cmap(len(feature))
     # Setting a domain field.
-    xaxis = { 'xmin':0, 'xmax':25 }
+    xaxis = { 'xmin':-50, 'xmax': 110 }
+    #xaxis = { 'xmin':0, 'xmax': 25 }
 
     # Creating the values for the domain of all our membership functions.
     xrange = getAxisValues(xaxis, 0.1)

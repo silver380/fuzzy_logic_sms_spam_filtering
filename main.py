@@ -7,7 +7,7 @@ import seaborn as sb
 import matplotlib.pyplot as plt
 import visualize
 N_ITER = util.n_iter
-POPULATION_SIZE = 5
+POPULATION_SIZE = 10
 MUT_PROB = 0.9
 RECOMB_PROB = 0.6
 MAX_RULES = 50
@@ -50,6 +50,7 @@ if __name__ == "__main__":
    best_ans.print_rules()
    print(f"best found answer has {best_ans.fitness} fitness (MCC). on training Set")
    print(f"best found answer has {matthews_corrcoef(y_test,best_ans.test(X_test))} fitness (MCC). on test Set")
+   print(f"best found answer f1: {f1_score(y_test,best_ans.test(X_test))}")
    for i in range(5):
       visualize.gen_membership_function(best_ans.ferules[f'f{i}'], i+1)
       
