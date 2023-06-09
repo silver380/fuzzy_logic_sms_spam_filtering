@@ -1,2 +1,2 @@
-best found answer has 0.5421754630858239 fitness (MCC). on training Set
-best found answer has 0.37755532882454274 fitness (MCC). on test Set
+best found answer has 0.6791165694569284 fitness (MCC). on training Set
+best found answer has 0.1323626801580736 fitness (MCC). on test Set

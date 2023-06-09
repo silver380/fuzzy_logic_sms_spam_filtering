@@ -66,7 +66,7 @@ def avg_fitness():
     ax.plot(df.columns,df.loc['mean'])
     ax.fill_between(df.columns, df.loc['min'], df.loc['max'], alpha=0.2)
     ax.set_xlabel('Generations')
-    ax.set_ylabel('Average Fitness (MCC)')
+    ax.set_ylabel('Fitness (MCC)')
     plt.xticks(np.arange(min(df.columns), max(df.columns)+25, 25.0))
     plt.show()
 
