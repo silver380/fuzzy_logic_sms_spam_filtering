@@ -21,15 +21,17 @@ if __name__ == "__main__":
    y_train = np.load('y_train.npy')
    y_test = np.load('y_test.npy')
    data = [X_train, y_train]
-   i = 0
+   i = 0 
+   nq = 0
    while i < repeat_num:
       print(f"Run number {i+1} / {repeat_num}")
       ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
       ans, fitness, fitness_history = ea.run()
       t_fitness = matthews_corrcoef(y_test,ans.test(X_test))
-      if t_fitness < 0.2:
+      if t_fitness < 0.2 and nq < 3:
+         nq+=1
          continue
-
+      nq = 0
       if i > 0:
          if ans.fitness > best_ans.fitness:
             best_ans = ans
