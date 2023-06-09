@@ -1,4 +1,5 @@
 import util
+import visualize
 import numpy as np
 import time
 from evolutionary_algorithm import EvolutionaryAlgorithm as EA
@@ -7,7 +8,7 @@ import seaborn as sb
 import matplotlib.pyplot as plt
 
 N_ITER = util.n_iter
-POPULATION_SIZE = 10
+POPULATION_SIZE = 6
 MUT_PROB = 0.9
 RECOMB_PROB = 0.6
 MAX_RULES = 50
@@ -21,24 +22,11 @@ if __name__ == "__main__":
    ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
    ans, fitness, fitness_history = ea.run()
 
-   print(f"f0: {len(ans.ferules['f0'])}")
-   print(f"f1: {len(ans.ferules['f1'])}")
-   print(f"f2: {len(ans.ferules['f2'])}")
-   print(f"f3: {len(ans.ferules['f3'])}")
-   print(f"f4: {len(ans.ferules['f4'])}")
    for rule in ans.ferules['rule_base']:
       print(rule)
-
-   y_hat = ans.test(X_test)
-   y_hat = np.array(y_hat)
-   cm_train = confusion_matrix(y_test, y_hat)
-   plt.subplots(figsize=(10, 6))
-   sb.heatmap(cm_train, annot = True, fmt = 'g')
-   plt.xlabel("Predicted")
-   plt.ylabel("Actual")
-   plt.title("Confusion Matrix for the training set")
-   plt.show()
-   print(accuracy_score(y_test,y_hat))
-   print(f"matthews_corrcoef: {matthews_corrcoef(y_test, y_hat)}")
-
-   #print(fitness_history)
+      
+   for i in range(5):
+      visualize.gen_membership_function(ans.ferules[f'f{i}'], i+1)
+      
+   visualize.gen_confusion_matrix(y_train, ans.train_y_hat, "training")
+   visualize.gen_confusion_matrix(y_test, ans.test(X_test), "testing")

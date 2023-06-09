@@ -21,6 +21,7 @@ class Chromosome:
 
         # The maximum bandwidth of the towers
         self.fitness = 0
+        self.train_y_hat = []
         self.label_cnt = [0,0]
         self.max_label_diff = 1 #max_rules / 10
         self.calc_fitness = calc_fitness
@@ -154,7 +155,7 @@ class Chromosome:
             numerator1 = x - m + s
             numerator2 = m - x + s
             denominator = s
-            ans = max(0, min(numerator1 / denominator, numerator2 / denominator, 0))
+            ans = max(0, min(numerator1 / denominator, numerator2 / denominator))
         
         elif mf == 2: # Right-angled Trapezoidal
             numerator1 = x - m + s
@@ -188,8 +189,6 @@ class Chromosome:
         return np.min(mu)
     
     def calculate_fitness(self):
-
-         
         y_hat = []
         for x in self.data[0]:
             gc_x = [0,0]
@@ -212,6 +211,8 @@ class Chromosome:
             y_hat.append(np.argmax(gc_x))
 
         y_hat = np.array(y_hat.copy())
+        self.train_y_hat = y_hat.copy()
+        
         #self.fitness = accuracy_score(self.data[1],y_hat)
         self.fitness = matthews_corrcoef(self.data[1], y_hat)
         
