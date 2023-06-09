@@ -4,7 +4,7 @@ import math
 import random
 
 curr_iter = 0
-n_iter = 200
+n_iter = 10
 
 def calculate_k(population_size, iter):
     return max(2, population_size * iter // n_iter)

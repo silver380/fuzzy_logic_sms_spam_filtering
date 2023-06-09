@@ -2,13 +2,15 @@ import util
 import numpy as np
 import time
 from evolutionary_algorithm import EvolutionaryAlgorithm as EA
+from sklearn.metrics import accuracy_score, f1_score, recall_score, confusion_matrix, matthews_corrcoef
+import seaborn as sb
+import matplotlib.pyplot as plt
 
-
-N_ITER = 10
-POPULATION_SIZE = 50
+N_ITER = util.n_iter
+POPULATION_SIZE = 10
 MUT_PROB = 0.9
-RECOMB_PROB = 0.6
-MAX_RULES = 100
+RECOMB_PROB = 0.9
+MAX_RULES = 50
 
 if __name__ == "__main__":
    X_train = np.load('X_train.npy')
@@ -27,5 +29,16 @@ if __name__ == "__main__":
    for rule in ans.ferules['rule_base']:
       print(rule)
 
-   print(f"test f1: {ans.test(X_test, y_test)}")
+   y_hat = ans.test(X_test)
+   y_hat = np.array(y_hat)
+   cm_train = confusion_matrix(y_test, y_hat)
+   plt.subplots(figsize=(10, 6))
+   sb.heatmap(cm_train, annot = True, fmt = 'g')
+   plt.xlabel("Predicted")
+   plt.ylabel("Actual")
+   plt.title("Confusion Matrix for the training set")
+   plt.show()
+   print(accuracy_score(y_test,y_hat))
+   print(f"matthews_corrcoef: {matthews_corrcoef(y_test, y_hat)}")
+
    #print(fitness_history)

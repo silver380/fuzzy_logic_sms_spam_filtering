@@ -3,7 +3,7 @@ import numpy as np
 import random
 from chromosome import Chromosome
 import sys
-
+import copy
 
 class EvolutionaryAlgorithm:
     def __init__(self, n_iter, mut_prob, recomb_prob, population_size, max_rules, data):
@@ -45,25 +45,25 @@ class EvolutionaryAlgorithm:
             for i in range(5):
                 if abs(young.ferules['rule_base'][k][i]) > len(young.ferules[f'f{i}']):
                     neg = -1 if random.uniform(0, 1) <= 0.5 else 1
-                    young.ferules['rule_base'][k][i] = neg * random.randint(0, len(young.ferules[f'f{i}']))
+                    young.ferules['rule_base'][k][i] = neg * (random.randint(0, len(young.ferules[f"f{i}"])))
         return young
         
     def rule_base_recombination(self, parent_1, parent_2, young1, young2):
-        crossover_point = random.randint(0, max(min(len(parent_1.ferules['rule_base']), len(parent_2.ferules['rule_base'])) - 1, 1))
-        young1.ferules['rule_base'] = parent_1.ferules['rule_base'][:crossover_point].copy() + parent_2.ferules['rule_base'][crossover_point:].copy()
-        young2.ferules['rule_base'] = parent_2.ferules['rule_base'][:crossover_point].copy() + parent_1.ferules['rule_base'][crossover_point:].copy()
+        crossover_point = random.randint(1, self.max_rules - 2)
+        young1.ferules['rule_base'] = copy.deepcopy(parent_1.ferules['rule_base'][:crossover_point]) + copy.deepcopy(parent_2.ferules['rule_base'][crossover_point:])
+        young2.ferules['rule_base'] = copy.deepcopy(parent_2.ferules['rule_base'][:crossover_point]) + copy.deepcopy(parent_1.ferules['rule_base'][crossover_point:])
 
         return young1, young2
 
     def feature_recombination(self, parent_1, parent_2, young1, young2):
         crossover_point = random.randint(0, 4)
         for i in range(crossover_point):
-            young1.ferules[f'f{i}'] = parent_1.ferules[f'f{i}'].copy()
-            young2.ferules[f'f{i}'] = parent_2.ferules[f'f{i}'].copy()
+            young1.ferules[f"f{i}"] = parent_1.ferules[f"f{i}"].copy()
+            young2.ferules[f"f{i}"] = parent_2.ferules[f"f{i}"].copy()
 
         for i in range(crossover_point, 5):
-            young1.ferules[f'f{i}'] = parent_2.ferules[f'f{i}'].copy()
-            young2.ferules[f'f{i}'] = parent_1.ferules[f'f{i}'].copy()
+            young1.ferules[f"f{i}"] = parent_2.ferules[f"f{i}"].copy()
+            young2.ferules[f"f{i}"] = parent_1.ferules[f"f{i}"].copy()
 
         return young1, young2
     
@@ -71,7 +71,7 @@ class EvolutionaryAlgorithm:
     def recombination(self, mating_pool):
         youngs = []
         for _ in range(self.population_size // 2):
-            parents = random.choices(mating_pool, k=2)
+            parents = random.choices(mating_pool, k=2).copy()
             young1 = Chromosome(self.mut_prob, self.recomb_prob, self.max_rules, False, self.data)
             young2 = Chromosome(self.mut_prob, self.recomb_prob, self.max_rules, False, self.data)
 
@@ -87,12 +87,13 @@ class EvolutionaryAlgorithm:
 
             youngs.append(young1)
             youngs.append(young2)
+
         return youngs
 
     def all_mutation(self, youngs):
         for i in range(len(youngs)):
             youngs[i].mutation()
-            #youngs[i] = self.error_correction(youngs[i])
+            
         
         return youngs
 
