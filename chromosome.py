@@ -25,8 +25,9 @@ class Chromosome:
         self.calc_fitness = calc_fitness
         self.init_chromosome()
 
-    def generate_s_m_mf(self):
-        m = random.uniform(1, 12)
+    def generate_s_m_mf(self, fi):
+        maxs = [10, 13, 24, 18, 14]
+        m = random.uniform(1,maxs[fi])
         s = random.uniform(0+1e-5, m/2)
         mf = random.randint(1, 4)
         if mf == 2:
@@ -38,7 +39,7 @@ class Chromosome:
         for i in range(5):
             num_ling_var = random.randint(3, 5)
             for _ in range(num_ling_var):
-                s, m, mf = self.generate_s_m_mf()
+                s, m, mf = self.generate_s_m_mf(i)
                 self.ferules[f"f{i}"].append((s, m, mf))
 
         for _ in range(self.max_rules):
@@ -103,7 +104,7 @@ class Chromosome:
             if len(self.ferules[f"f{i}"]) < 5:
                 feature_append_prob = random.uniform(0, 1)
                 if feature_append_prob <= self.mut_prob:
-                    s, m, mf = self.generate_s_m_mf()
+                    s, m, mf = self.generate_s_m_mf(i)
                     self.ferules[f"f{i}"].append((s, m, mf))
 
     def mut_feature_pop(self):
@@ -119,7 +120,7 @@ class Chromosome:
             feature_change_prob = random.uniform(0, 1)
             if feature_change_prob <= self.mut_prob:
                 idx = random.randint(0, len(self.ferules[f"f{i}"]) - 1)
-                s, m, mf = self.generate_s_m_mf()
+                s, m, mf = self.generate_s_m_mf(i)
                 self.ferules[f"f{i}"][idx] = (s, m, mf)
     
     def error_correction(self):

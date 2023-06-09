@@ -7,7 +7,7 @@ import seaborn as sb
 import matplotlib.pyplot as plt
 import visualize
 N_ITER = util.n_iter
-POPULATION_SIZE = 10
+POPULATION_SIZE = 5
 MUT_PROB = 0.9
 RECOMB_PROB = 0.6
 MAX_RULES = 50
@@ -27,11 +27,11 @@ if __name__ == "__main__":
       print(f"Run number {i+1} / {repeat_num}")
       ea = EA(N_ITER, MUT_PROB, RECOMB_PROB, POPULATION_SIZE, MAX_RULES, data)
       ans, fitness, fitness_history = ea.run()
-      t_fitness = matthews_corrcoef(y_test,ans.test(X_test))
+      # t_fitness = matthews_corrcoef(y_test,ans.test(X_test))
       # if t_fitness < 0.25 and nq < 3:
       #    nq+=1
       #    continue
-      nq = 0
+      # nq = 0
       if i > 0:
          if ans.fitness > best_ans.fitness:
             best_ans = ans
