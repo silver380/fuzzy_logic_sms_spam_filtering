@@ -1,24 +1,104 @@
 the input sample is: [0.         4.18796829 0.         0.         0.        ]
-result for rule number 1: 0.9821193593840284 DC 0.8889095556854696 0.9959693202074643 0 
+result for rule number 1: 0.0011809063109748709 0 0.8878501800811578 0.06229253250188416 1 
 aggregation result: 0.0, rule class: spam
-result for rule number 2: DC 0.2191188783755415 0.11109044431453045 0.9959693202074643 1 
-aggregation result: 0.02424389869428889, rule class: spam
-result for rule number 3: 0.9308045022288605 0.2191188783755415 0 1 0.9217290017184703 
-aggregation result: 0.0, rule class: not spam
-result for rule number 4: 0.9308045022288605 0.2191188783755415 0.915994631349167 4.226735010039279e-105 0.9217290017184703 
-aggregation result: 7.278459560837284e-106, rule class: spam
-result for rule number 5: DC 0.4463438567841366 0 0 0.9217290017184703 
-aggregation result: 0.0, rule class: not spam
-result for rule number 6: 0.9308045022288605 0.9829672235366868 0.084005368650833 DC 0.9217290017184703 
-aggregation result: 0.07084477194825897, rule class: not spam
-result for rule number 7: DC DC 0.8889095556854696 0.018049213016444084 0 
+result for rule number 2: 0 1 1 0.06229253250188416 0.021774185783262425 
 aggregation result: 0.0, rule class: spam
-result for rule number 8: 0.01788064061597157 0.018882973268420446 0.915994631349167 1.0 1.2502476648515312e-108 
-aggregation result: 3.866717402820513e-112, rule class: spam
-result for rule number 9: 0.06919549777113952 0.1403434924119323 0.084005368650833 0.004030679792535736 0 
+result for rule number 3: 0.02237175280291718 0 1 DC 0.9782258142167376 
+aggregation result: 0.0, rule class: spam
+result for rule number 4: 0.9776282471970829 DC 1 0.9377074674981158 1 
+aggregation result: 0.9167293078337986, rule class: not spam
+result for rule number 5: DC 1 0.8878501800811578 0.06229253250188416 0.9999982554494463 
+aggregation result: 0.055306339714635326, rule class: not spam
+result for rule number 6: 0.9988190936890251 1 0 0.020495012750166998 1 
 aggregation result: 0.0, rule class: not spam
-result for rule number 10: 0 0.018882973268420446 DC 0.9959693202074643 1.2502476648515312e-108 
+result for rule number 7: DC 1 DC 0.06229253250188416 0.9782258142167376 
+aggregation result: 0.06093616332627822, rule class: spam
+result for rule number 8: 0.0011809063109748709 0 0.021441453743915376 0.06229253250188416 0.9999982554494463 
+aggregation result: 0.0, rule class: spam
+result for rule number 9: DC 0 0 0 DC 
+aggregation result: 0, rule class: spam
+result for rule number 10: 0.9938141819843059 DC DC DC 0.05009876126008462 
+aggregation result: 0.04978885944011803, rule class: spam
+result for rule number 11: DC DC 0.021441453743915376 0.9377074674981158 DC 
+aggregation result: 0.02010581128968488, rule class: spam
+result for rule number 12: 0.9988190936890251 DC DC 0.8822368245402831 0 
 aggregation result: 0.0, rule class: not spam
-matching with not spam class: 0.07084477194825897
-matching with spam class: 0.02424389869428889
-rule base prediction: not spam, true label: spam
+result for rule number 13: 0.9938141819843059 0 DC 0.979504987249833 0.05009876126008462 
+aggregation result: 0.0, rule class: spam
+result for rule number 14: 0.0011809063109748709 0 0 0 DC 
+aggregation result: 0.0, rule class: not spam
+result for rule number 15: DC 0 0.8878501800811578 0.020495012750166998 0 
+aggregation result: 0.0, rule class: spam
+result for rule number 16: 0.9938141819843059 1 0.10061153937677725 DC 1 
+aggregation result: 0.09998917470391366, rule class: not spam
+result for rule number 17: 0.00618581801569409 0 0.9785585462560846 0.8822368245402831 0.9782258142167376 
+aggregation result: 0.0, rule class: not spam
+result for rule number 18: DC 1 DC 0.1177631754597169 DC 
+aggregation result: 0.1177631754597169, rule class: spam
+result for rule number 19: 0.02237175280291718 0 0.10061153937677725 DC 1 
+aggregation result: 0.0, rule class: not spam
+result for rule number 20: 0.9776282471970829 0.8542767164324677 0.11214981991884225 0.1177631754597169 1 
+aggregation result: 0.011030124119477886, rule class: spam
+result for rule number 21: 1 0.14572328356753228 0.8878501800811578 DC 0.9499012387399154 
+aggregation result: 0.12289864360394255, rule class: not spam
+result for rule number 22: DC 0 0.10061153937677725 0.9377074674981158 0.9499012387399154 
+aggregation result: 0.0, rule class: not spam
+result for rule number 23: 0 0 0.10061153937677725 0.06229253250188416 0.9499012387399154 
+aggregation result: 0.0, rule class: spam
+result for rule number 24: 1 0 0 0.9377074674981158 0.021774185783262425 
+aggregation result: 0.0, rule class: not spam
+result for rule number 25: 0.9988190936890251 0 0.10061153937677725 1 0.05009876126008462 
+aggregation result: 0.0, rule class: spam
+result for rule number 26: 0.0011809063109748709 DC 0.10061153937677725 0.1177631754597169 DC 
+aggregation result: 1.3991772826050419e-05, rule class: not spam
+result for rule number 27: 0.0011809063109748709 0 0.10061153937677725 1 0 
+aggregation result: 0.0, rule class: not spam
+result for rule number 28: 0.9988190936890251 DC DC 0.979504987249833 0.9499012387399154 
+aggregation result: 0.9293342465380277, rule class: spam
+result for rule number 29: DC 1 0.11214981991884225 0.979504987249833 0.021774185783262425 
+aggregation result: 0.002391922787395148, rule class: not spam
+result for rule number 30: 0.9776282471970829 0.14572328356753228 0.021441453743915376 0.1177631754597169 0.9999982554494463 
+aggregation result: 0.00035972089693451066, rule class: spam
+result for rule number 31: 0.00618581801569409 0.14572328356753228 1 0 0 
+aggregation result: 0.0, rule class: spam
+result for rule number 32: DC 1 DC 0.979504987249833 DC 
+aggregation result: 0.979504987249833, rule class: spam
+result for rule number 33: 0.0011809063109748709 1 1 0.06229253250188416 DC 
+aggregation result: 7.356164475808226e-05, rule class: spam
+result for rule number 34: 0 0 0.021441453743915376 0.9377074674981158 0.9499012387399154 
+aggregation result: 0.0, rule class: spam
+result for rule number 35: 0.0011809063109748709 0.8542767164324677 1 DC 0.9999982554494463 
+aggregation result: 0.0010088190058151658, rule class: spam
+result for rule number 36: 0.9938141819843059 DC 0.021441453743915376 1 DC 
+aggregation result: 0.021308820813063595, rule class: not spam
+result for rule number 37: 0 DC DC 1 1 
+aggregation result: 0, rule class: not spam
+result for rule number 38: 0.00618581801569409 DC 0 0.020495012750166998 1 
+aggregation result: 0.0, rule class: not spam
+result for rule number 39: 0.0011809063109748709 1 0 0.8822368245402831 0.9999982554494463 
+aggregation result: 0.0, rule class: not spam
+result for rule number 40: 0.9988190936890251 0.8542767164324677 1 0.06229253250188416 1.7445505536286197e-06 
+aggregation result: 9.272673155417321e-08, rule class: not spam
+result for rule number 41: 0.0011809063109748709 0 0.9785585462560846 0.8822368245402831 1 
+aggregation result: 0.0, rule class: not spam
+result for rule number 42: 0.02237175280291718 1 0.10061153937677725 0.979504987249833 1 
+aggregation result: 0.002204725155636679, rule class: not spam
+result for rule number 43: 0 DC DC 0.06229253250188416 1.7445505536286197e-06 
+aggregation result: 0.0, rule class: not spam
+result for rule number 44: 0.02237175280291718 0.8542767164324677 0.9785585462560846 0 0 
+aggregation result: 0.0, rule class: not spam
+result for rule number 45: DC 1 0 0.020495012750166998 1 
+aggregation result: 0.0, rule class: spam
+result for rule number 46: 0.9776282471970829 0.8542767164324677 0.9785585462560846 0.020495012750166998 0.9782258142167376 
+aggregation result: 0.016384999682449573, rule class: spam
+result for rule number 47: 1 1 DC 0.1177631754597169 0.05009876126008462 
+aggregation result: 0.005899789212585813, rule class: not spam
+result for rule number 48: 1 0.8542767164324677 0.10061153937677725 DC 0 
+aggregation result: 0.0, rule class: not spam
+result for rule number 49: 0.9776282471970829 1 0.8993884606232228 0 1 
+aggregation result: 0.0, rule class: not spam
+result for rule number 50: 0.02237175280291718 DC DC 0.979504987249833 1 
+aggregation result: 0.02191324344397781, rule class: not spam
+matching with not spam class: 1.2486560517685068
+matching with spam class: 2.186290468653094
+rule base prediction: spam, true label: spam

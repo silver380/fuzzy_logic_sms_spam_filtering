@@ -2,7 +2,7 @@ import math
 import numpy as np
 
 curr_iter = 0
-n_iter = 3
+n_iter = 100
 
 def isosceles_triangular(x, s, m):
     numerator1 = x - m + s
